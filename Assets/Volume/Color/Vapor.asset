@@ -16,7 +16,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   edgeColor:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 0.12941177}
+    m_Value: {r: 1, g: 1, b: 1, a: 0.1254902}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
@@ -25,12 +25,12 @@ MonoBehaviour:
     m_Value: 2
   edgeThreshold:
     m_OverrideState: 1
-    m_Value: 0.293
+    m_Value: 0.3
     min: 0
     max: 1
   edgeContrast:
     m_OverrideState: 1
-    m_Value: 0.726
+    m_Value: 0.75
     min: 0
     max: 1
   fillGradient:
@@ -45,9 +45,9 @@ MonoBehaviour:
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 2209
-      ctime1: 10309
-      ctime2: 28994
+      ctime0: 2294
+      ctime1: 10486
+      ctime2: 28835
       ctime3: 65535
       ctime4: 0
       ctime5: 0
@@ -74,39 +74,9 @@ MonoBehaviour:
     m_Value: 0
   ditherStrength:
     m_OverrideState: 1
-    m_Value: 0.055
+    m_Value: 0.05
     min: 0
     max: 1
---- !u!114 &-1594836995725836061
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4b23de600908be4c83dca2c48edef63, type: 3}
-  m_Name: Utility
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  hueShift:
-    m_OverrideState: 1
-    m_Value: 0
-    min: -1
-    max: 1
-  invert:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 1
-  fade:
-    m_OverrideState: 0
-    m_Value: {r: 0, g: 0, b: 0, a: 0}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,13 +87,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Recolor
+  m_Name: Vapor
   m_EditorClassIdentifier: 
   components:
   - {fileID: -4285129315697360874}
-  - {fileID: -1594836995725836061}
   - {fileID: 59670307394670407}
-  - {fileID: 5222253690526028907}
 --- !u!114 &59670307394670407
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -146,7 +114,7 @@ MonoBehaviour:
     m_Value: 1
   opacity:
     m_OverrideState: 1
-    m_Value: 0.889
+    m_Value: 0.9
     min: 0
     max: 1
   color:
@@ -197,92 +165,3 @@ MonoBehaviour:
   sourceAlpha:
     m_OverrideState: 0
     m_Value: 1
---- !u!114 &5222253690526028907
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9008a067f4d626c4d8bc4bc48f04bb89, type: 3}
-  m_Name: AmbientOcclusion
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rayTracing:
-    m_OverrideState: 0
-    m_Value: 0
-  intensity:
-    m_OverrideState: 1
-    m_Value: 1.2
-    min: 0
-    max: 4
-  directLightingStrength:
-    m_OverrideState: 1
-    m_Value: 1
-    min: 0
-    max: 1
-  stepCount:
-    m_OverrideState: 0
-    m_Value: 6
-    min: 2
-    max: 32
-  radius:
-    m_OverrideState: 0
-    m_Value: 2
-    min: 0.25
-    max: 5
-  fullResolution:
-    m_OverrideState: 0
-    m_Value: 0
-  maximumRadiusInPixels:
-    m_OverrideState: 0
-    m_Value: 40
-    min: 16
-    max: 256
-  temporalAccumulation:
-    m_OverrideState: 0
-    m_Value: 1
-  ghostingReduction:
-    m_OverrideState: 0
-    m_Value: 0.5
-    min: 0
-    max: 1
-  bilateralUpsample:
-    m_OverrideState: 0
-    m_Value: 1
-  directionCount:
-    m_OverrideState: 0
-    m_Value: 2
-    min: 1
-    max: 6
-  blurSharpness:
-    m_OverrideState: 0
-    m_Value: 0.1
-    min: 0
-    max: 1
-  layerMask:
-    m_OverrideState: 0
-    m_Value:
-      serializedVersion: 2
-      m_Bits: 4294967295
-  rayLength:
-    m_OverrideState: 0
-    m_Value: 0.5
-    min: 0
-    max: 50
-  sampleCount:
-    m_OverrideState: 0
-    m_Value: 4
-    min: 1
-    max: 64
-  denoise:
-    m_OverrideState: 0
-    m_Value: 0
-  denoiserRadius:
-    m_OverrideState: 0
-    m_Value: 0.5
-    min: 0.001
-    max: 1

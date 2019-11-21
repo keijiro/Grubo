@@ -19,9 +19,9 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: -1456
-    y: -1708
+    y: -1718
     width: 2355
-    height: 2713
+    height: 2723
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -56,6 +56,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615293}
   - {fileID: 8926484042661615304}
   - {fileID: 8926484042661615308}
+  - {fileID: 8926484042661615309}
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
@@ -155,7 +156,7 @@ VisualEffectResource:
       */attributes.scaleX,  /*inout */attributes.scaleY,  /*inout */attributes.scaleZ, 
       /*inout */attributes.seed, float3(1, 1, 2), float3(1, 1, 10));\n        }\n       
       {\n            float tmp_v = attributes.scaleZ * attributes.size;\n           
-      float tmp_x = tmp_v * (float)-0.5;\n            float3 tmp_y = float3((float)0,
+      float tmp_x = tmp_v * (float)0.5;\n            float3 tmp_y = float3((float)0,
       (float)0, tmp_x);\n            SetAttribute_C707D62A( /*inout */attributes.position,
       tmp_y);\n        }\n        \n\r\n\t\t\r\n#if VFX_USE_ALIVE_CURRENT\r\n       
       if (attributes.alive)\r\n#endif       \r\n        {\r\n#if USE_DEAD_LIST\r\n\t       
@@ -1003,29 +1004,27 @@ VisualEffectResource:
       on CPU\r\n#endif\r\n\r\n    if (id < maxThreadId)\r\n    {\r\n#if VFX_USE_SPAWNER_FROM_GPU\r\n       
       int sourceIndex = eventList[id];\r\n#endif\r\n\t\tuint particleIndex = id +
       currentSpawnIndex;\r\n\t\t\r\n#if !VFX_USE_SPAWNER_FROM_GPU\r\n        int
-      sourceIndex = 0;\n        /*//Loop with 1 iteration generate a wrong IL Assembly
-      (and actually, useless code)\n        uint currentSumSpawnCount = 0u;\n       
-      for (sourceIndex=0; sourceIndex<1; sourceIndex++)\n        {\n            currentSumSpawnCount
+      sourceIndex = 0;\n        uint currentSumSpawnCount = 0u;\n        for (sourceIndex=0;
+      sourceIndex<2; sourceIndex++)\n        {\n            currentSumSpawnCount
       += uint(asfloat(sourceAttributeBuffer.Load((sourceIndex * 0x1 + 0x0) << 2)));\n           
       if (id < currentSumSpawnCount)\n            {\n                break;\n           
-      }\n        }\n        */\n        \n\r\n#endif\r\n\r\n\t\tAttributes attributes
-      = (Attributes)0;\r\n\t\tSourceAttributes sourceAttributes = (SourceAttributes)0;\r\n\t\t\r\n       
-      attributes.position = float3(0, 0, 0);\n        attributes.seed = (uint)0;\n       
-      attributes.size = (float)0.100000001;\n        attributes.lifetime = (float)1;\n       
-      attributes.age = (float)0;\n        attributes.alive = (bool)true;\n       
-      \n\r\n#if VFX_USE_PARTICLEID_CURRENT\r\n         attributes.particleId = particleIndex;\r\n#endif\r\n#if
-      VFX_USE_SEED_CURRENT\r\n        attributes.seed = WangHash(particleIndex ^
-      systemSeed);\r\n#endif\r\n#if HAS_STRIPS\r\n#if !VFX_USE_SPAWNER_FROM_GPU\r\n\t\t\r\n#else\r\n       
-      uint stripIndex = sourceIndex;\r\n#endif\r\n\t\tstripIndex = min(stripIndex,
-      STRIP_COUNT);\r\n\r\n        if (!GetParticleIndex(particleIndex, stripIndex))\r\n           
-      return;\r\n\r\n        const StripData stripData = GetStripDataFromStripIndex(stripIndex,
-      PARTICLE_PER_STRIP_COUNT);\r\n\t\tInitStripAttributes(particleIndex, attributes,
-      stripData);\r\n\t\t// TODO Change seed to be sure we're deterministic on random
-      with strip\r\n#endif\r\n        \r\n        {\n            SetAttribute_CAC295B2(
+      }\n        }\n        \n\r\n#endif\r\n\r\n\t\tAttributes attributes = (Attributes)0;\r\n\t\tSourceAttributes
+      sourceAttributes = (SourceAttributes)0;\r\n\t\t\r\n        attributes.position
+      = float3(0, 0, 0);\n        attributes.seed = (uint)0;\n        attributes.size
+      = (float)0.100000001;\n        attributes.lifetime = (float)1;\n        attributes.age
+      = (float)0;\n        attributes.alive = (bool)true;\n        \n\r\n#if VFX_USE_PARTICLEID_CURRENT\r\n        
+      attributes.particleId = particleIndex;\r\n#endif\r\n#if VFX_USE_SEED_CURRENT\r\n       
+      attributes.seed = WangHash(particleIndex ^ systemSeed);\r\n#endif\r\n#if HAS_STRIPS\r\n#if
+      !VFX_USE_SPAWNER_FROM_GPU\r\n\t\t\r\n#else\r\n        uint stripIndex = sourceIndex;\r\n#endif\r\n\t\tstripIndex
+      = min(stripIndex, STRIP_COUNT);\r\n\r\n        if (!GetParticleIndex(particleIndex,
+      stripIndex))\r\n            return;\r\n\r\n        const StripData stripData
+      = GetStripDataFromStripIndex(stripIndex, PARTICLE_PER_STRIP_COUNT);\r\n\t\tInitStripAttributes(particleIndex,
+      attributes, stripData);\r\n\t\t// TODO Change seed to be sure we're deterministic
+      on random with strip\r\n#endif\r\n        \r\n        {\n            SetAttribute_CAC295B2(
       /*inout */attributes.position,  /*inout */attributes.seed, float3(-1, -1, -1),
       float3(1, 1, 1));\n        }\n        {\n            SetAttribute_3278B545(
-      /*inout */attributes.size,  /*inout */attributes.seed, (float)0.0250000004,
-      (float)0.0500000007);\n        }\n        {\n            SetAttribute_F0142CB9(
+      /*inout */attributes.size,  /*inout */attributes.seed, (float)0.0500000007,
+      (float)0.100000001);\n        }\n        {\n            SetAttribute_F0142CB9(
       /*inout */attributes.lifetime, (float)0.0160000008);\n        }\n        \n\r\n\t\t\r\n#if
       VFX_USE_ALIVE_CURRENT\r\n        if (attributes.alive)\r\n#endif       \r\n       
       {\r\n#if USE_DEAD_LIST\r\n\t        uint deadIndex = deadListIn.DecrementCounter();\r\n           
@@ -1983,7 +1982,7 @@ VisualEffectResource:
       / (uint)5;\n            uint tmp_x = tmp_w * (uint)5;\n            uint tmp_y
       = attributes.particleId - tmp_x;\n            float tmp_z = (float)tmp_y;\n           
       float tmp_bb = tmp_z + (float)0.625;\n            float tmp_bc = attributes.size
-      * tmp_bb;\n            float tmp_be = tmp_bc * (float)0.800000012;\n           
+      * tmp_bb;\n            float tmp_be = tmp_bc * (float)-0.800000012;\n           
       float3 tmp_bf = float3((float)0, (float)0, tmp_be);\n            SetAttribute_C707D62A(
       /*inout */attributes.position, tmp_bf);\n        }\n        {\n           
       SetAttribute_D5151642( /*inout */attributes.scaleX,  /*inout */attributes.scaleY, 
@@ -2204,17 +2203,17 @@ VisualEffectResource:
         - m_ExpressionIndex: 1
           m_Value: 0.625
         - m_ExpressionIndex: 2
-          m_Value: -0.5
+          m_Value: 0.5
         - m_ExpressionIndex: 3
-          m_Value: 0.8
+          m_Value: -0.8
         - m_ExpressionIndex: 6
           m_Value: 0
         - m_ExpressionIndex: 11
-          m_Value: 0.05
+          m_Value: 0.1
         - m_ExpressionIndex: 16
           m_Value: 0.016
         - m_ExpressionIndex: 17
-          m_Value: 0.025
+          m_Value: 0.05
         - m_ExpressionIndex: 26
           m_Value: 1
       m_Vector2f:
@@ -2615,7 +2614,7 @@ VisualEffectResource:
       capacity: 0
       stride: 4
     - type: 1
-      size: 1
+      size: 2
       layout:
       - name: spawnCount
         type: 1
@@ -2623,7 +2622,7 @@ VisualEffectResource:
           bucket: 0
           structure: 1
           element: 0
-      capacity: 1
+      capacity: 2
       stride: 4
     - type: 4
       size: 128
@@ -2669,15 +2668,26 @@ VisualEffectResource:
           element: 0
       initialData:
         data: 00000000
+    - capacity: 1
+      stride: 1
+      layout:
+      - name: spawnCount
+        type: 1
+        offset:
+          bucket: 0
+          structure: 1
+          element: 0
+      initialData:
+        data: 00000000
     m_Events:
     - name: OnPlay
-      playSystems: 
+      playSystems: 00000000
       stopSystems: 
     - name: OnStop
       playSystems: 
-      stopSystems: 00000000
+      stopSystems: 0000000001000000
     - name: OnNoteOn
-      playSystems: 00000000
+      playSystems: 01000000
       stopSystems: 
     m_RuntimeVersion: 10
     m_RendererSettings:
@@ -2699,6 +2709,15 @@ VisualEffectResource:
     buffers:
     - nameId: spawner_output
       index: 1
+    values: []
+    tasks: []
+  - type: 0
+    flags: 0
+    capacity: 0
+    layer: 4294967295
+    buffers:
+    - nameId: spawner_output
+      index: 2
     values: []
     tasks:
     - type: 268435457
@@ -2797,6 +2816,8 @@ VisualEffectResource:
       index: 8
     - nameId: deadListCount
       index: 9
+    - nameId: spawner_input
+      index: 2
     - nameId: spawner_input
       index: 1
     values:
@@ -3535,6 +3556,8 @@ MonoBehaviour:
   m_InputFlowSlot:
   - link:
     - context: {fileID: 8926484042661615304}
+      slotIndex: 0
+    - context: {fileID: 8926484042661615309}
       slotIndex: 0
   m_OutputFlowSlot:
   - link:
@@ -6180,7 +6203,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.025
+      m_SerializableObject: 0.05
     m_Space: 2147483647
   m_Property:
     name: A
@@ -6214,7 +6237,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.05
+      m_SerializableObject: 0.1
     m_Space: 2147483647
   m_Property:
     name: B
@@ -6437,7 +6460,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.8
+      m_SerializableObject: -0.8
     m_Space: 2147483647
   m_Property:
     name: c
@@ -7287,7 +7310,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: -0.5
+      m_SerializableObject: 0.5
     m_Space: 2147483647
   m_Property:
     name: c
@@ -7714,7 +7737,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children:
   - {fileID: 8926484042661615305}
-  m_UIPosition: {x: -1053, y: -1484}
+  m_UIPosition: {x: -809, y: -1538}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -7865,7 +7888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: -1050, y: -1708}
+  m_UIPosition: {x: -817, y: -1718}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -7879,3 +7902,103 @@ MonoBehaviour:
     - context: {fileID: 8926484042661615304}
       slotIndex: 0
   eventName: OnNoteOn
+--- !u!114 &8926484042661615309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a13919d81fb7444849bae8b5c812a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 114350483966674976}
+  m_Children:
+  - {fileID: 8926484042661615310}
+  m_UIPosition: {x: -1280, y: -1458}
+  m_UICollapsed: 0
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots: []
+  m_Label: 
+  m_Data: {fileID: 0}
+  m_InputFlowSlot:
+  - link: []
+  - link: []
+  m_OutputFlowSlot:
+  - link:
+    - context: {fileID: 8926484042661614935}
+      slotIndex: 0
+  loopDuration: 0
+  loopCount: 0
+  delayBeforeLoop: 0
+  delayAfterLoop: 0
+--- !u!114 &8926484042661615310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05c6884b705ce14d82ae720f0ec209f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 8926484042661615309}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 0
+  m_UISuperCollapsed: 0
+  m_InputSlots:
+  - {fileID: 8926484042661615311}
+  m_OutputSlots: []
+  m_Disabled: 1
+--- !u!114 &8926484042661615311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 8926484042661615311}
+  m_MasterData:
+    m_Owner: {fileID: 8926484042661615310}
+    m_Value:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 10
+    m_Space: 2147483647
+  m_Property:
+    name: Rate
+    m_serializedType:
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    attributes:
+    - m_Type: 1
+      m_Min: 0
+      m_Max: Infinity
+      m_Tooltip: 
+      m_Regex: 
+      m_RegexMaxLength: 0
+    - m_Type: 3
+      m_Min: -Infinity
+      m_Max: Infinity
+      m_Tooltip: Sets the number of particles to be spawned per second.
+      m_Regex: 
+      m_RegexMaxLength: 0
+  m_Direction: 0
+  m_LinkedSlots: []
