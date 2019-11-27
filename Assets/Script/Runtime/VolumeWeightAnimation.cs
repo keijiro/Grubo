@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.VFX;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 namespace Grubo
@@ -9,6 +9,7 @@ namespace Grubo
     {
         [SerializeField] AnimationCurve _curve = AnimationCurve.Linear(0, 1, 1, 0);
         [SerializeField] float _speed = 1;
+        [SerializeField] Key _playKey = Key.None;
 
         public float Speed {
             get { return _speed; }
@@ -37,7 +38,11 @@ namespace Grubo
 
         void Update()
         {
+            if (_playKey != Key.None &&
+                Keyboard.current[_playKey].wasPressedThisFrame) _time = 0;
+
             ApplyCurve();
+
             _time += Time.deltaTime * _speed;
         }
     }

@@ -92,6 +92,29 @@ namespace Grubo
             }
         }
 
+        // Turn off all the active notes.
+        void NoteAllOff()
+        {
+            foreach (var slot in _slots)
+            {
+                var vfx = slot.Vfx;
+
+                // Reset the note time.
+                // This is needed even when the note has been already off.
+                if (vfx.HasFloat("NoteOnTime")) vfx.SetFloat("NoteOnTime", 1e+6f);
+                if (vfx.HasFloat("NoteOffTime")) vfx.SetFloat("NoteOffTime", 1e+6f);
+
+                if (slot.Note < 0) continue;
+
+                // Note off
+                vfx.SendEvent("OnNoteOff");
+
+                // Slot release
+                slot.Note = -1;
+                _freeSlotQueue.Enqueue(slot);
+            }
+        }
+
         #endregion
 
         #region Delegate functions
@@ -189,6 +212,11 @@ namespace Grubo
         #endregion
 
         #region MonoBehaviour implementation
+
+        void OnDisable()
+        {
+            NoteAllOff();
+        }
 
         void Start()
         {
