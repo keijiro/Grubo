@@ -58,6 +58,17 @@ namespace Grubo
 
         #region Local members
 
+        // Visual effect event/property IDs
+        static class IDs
+        {
+            public static readonly int NoteNumber  = Shader.PropertyToID("NoteNumber");
+            public static readonly int Velocity    = Shader.PropertyToID("Velocity");
+            public static readonly int OnNoteOn    = Shader.PropertyToID("OnNoteOn");
+            public static readonly int OnNoteOff   = Shader.PropertyToID("OnNoteOff");
+            public static readonly int NoteOnTime  = Shader.PropertyToID("NoteOnTime");
+            public static readonly int NoteOffTime = Shader.PropertyToID("NoteOffTime");
+        }
+
         // A class used to store a state of a note slot
         class NoteSlot
         {
@@ -101,13 +112,13 @@ namespace Grubo
 
                 // Reset the note time.
                 // This is needed even when the note has been already off.
-                if (vfx.HasFloat("NoteOnTime")) vfx.SetFloat("NoteOnTime", 1e+6f);
-                if (vfx.HasFloat("NoteOffTime")) vfx.SetFloat("NoteOffTime", 1e+6f);
+                vfx.SetFloatSafe(IDs.NoteOnTime, 1e+6f);
+                vfx.SetFloatSafe(IDs.NoteOffTime, 1e+6f);
 
                 if (slot.Note < 0) continue;
 
                 // Note off
-                vfx.SendEvent("OnNoteOff");
+                if (vfx != null) vfx.SendEvent(IDs.OnNoteOff);
 
                 // Slot release
                 slot.Note = -1;
@@ -173,11 +184,11 @@ namespace Grubo
 
             // Update the vfx properties.
             var vfx = slot.Vfx;
-            if (vfx.HasUInt("NoteNumber")) vfx.SetUInt("NoteNumber", (uint)note);
-            if (vfx.HasFloat("Velocity")) vfx.SetFloat("Velocity", velocity);
+            vfx.SetUIntSafe(IDs.NoteNumber, (uint)note);
+            vfx.SetFloatSafe(IDs.Velocity, velocity);
 
             // VFX note on event
-            vfx.SendEvent("OnNoteOn");
+            vfx.SendEvent(IDs.OnNoteOn);
 
             // Note on Unity event
             _noteOnEvent.Invoke();
@@ -199,7 +210,7 @@ namespace Grubo
                 if (slot.Note == note)
                 {
                     // VFX note on event
-                    slot.Vfx.SendEvent("OnNoteOff");
+                    slot.Vfx.SendEvent(IDs.OnNoteOff);
 
                     // Release the note slot.
                     slot.Note = -1;
@@ -247,8 +258,8 @@ namespace Grubo
                     slot.TimeOff += Time.deltaTime;
 
                 var vfx = slot.Vfx;
-                if (vfx.HasFloat("NoteOnTime")) vfx.SetFloat("NoteOnTime", slot.TimeOn);
-                if (vfx.HasFloat("NoteOffTime")) vfx.SetFloat("NoteOffTime", slot.TimeOff);
+                vfx.SetFloatSafe(IDs.NoteOnTime, slot.TimeOn);
+                vfx.SetFloatSafe(IDs.NoteOffTime, slot.TimeOff);
             }
         }
 
