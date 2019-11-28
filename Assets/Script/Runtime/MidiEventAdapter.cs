@@ -175,6 +175,10 @@ namespace Grubo
         {
             if (!enabled || !gameObject.activeInHierarchy) return;
 
+            // Note on Unity event
+            _noteOnEvent.Invoke();
+
+            // Allocate a note slot.
             if (_freeSlotQueue.Count == 0) return;
             var slot = _freeSlotQueue.Dequeue();
 
@@ -189,9 +193,6 @@ namespace Grubo
 
             // VFX note on event
             vfx.SendEvent(IDs.OnNoteOn);
-
-            // Note on Unity event
-            _noteOnEvent.Invoke();
         }
 
         // Note off callback for MIDI device

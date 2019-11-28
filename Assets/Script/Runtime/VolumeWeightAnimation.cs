@@ -26,6 +26,7 @@ namespace Grubo
 
         public void Play()
         {
+            if (!enabled || !gameObject.activeInHierarchy) return;
             _time = 0;
             ApplyCurve();
         }
