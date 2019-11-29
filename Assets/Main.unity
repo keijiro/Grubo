@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 37053737}
   - component: {fileID: 37053736}
   m_Layer: 0
-  m_Name: Blocks
+  m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -323,7 +323,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 159425740}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &64475114
 GameObject:
@@ -512,14 +512,14 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 37053738}
-  - {fileID: 1969293337}
-  - {fileID: 682626191}
   - {fileID: 1533635355}
-  - {fileID: 67489898}
-  - {fileID: 249655697}
+  - {fileID: 37053738}
   - {fileID: 2017969795}
   - {fileID: 1796482535}
+  - {fileID: 67489898}
+  - {fileID: 1969293337}
+  - {fileID: 682626191}
+  - {fileID: 249655697}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -713,7 +713,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 159425740}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!73398921 &249655698
 VFXRenderer:
@@ -1735,7 +1735,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 159425740}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &700273194
 GameObject:
@@ -2359,7 +2359,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 159425740}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!73398921 &1533635356
 VFXRenderer:
@@ -3034,6 +3034,8 @@ GameObject:
   - component: {fileID: 1796482535}
   - component: {fileID: 1796482537}
   - component: {fileID: 1796482536}
+  - component: {fileID: 1796482539}
+  - component: {fileID: 1796482538}
   m_Layer: 0
   m_Name: Filament2
   m_TagString: Untagged
@@ -3053,7 +3055,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 159425740}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!73398921 &1796482536
 VFXRenderer:
@@ -3130,7 +3132,42 @@ VisualEffect:
     m_NamedObject:
       m_Array: []
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 1
+        m_Name: Spawn
+        m_Overridden: 1
+--- !u!114 &1796482538
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796482534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ac596c74cd82a4c906be06f710c862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  check: 0
+  m_Property:
+    m_Name: Spawn
+  Target: {fileID: 1912823947}
+--- !u!114 &1796482539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796482534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdafc37f32b176349b1684c4455b98e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExecuteInEditor: 1
+  m_Bindings:
+  - {fileID: 1796482538}
+  m_VisualEffect: {fileID: 1796482537}
 --- !u!1 &1815743566
 GameObject:
   m_ObjectHideFlags: 0
@@ -3493,7 +3530,7 @@ GameObject:
   - component: {fileID: 1969293336}
   - component: {fileID: 1969293335}
   m_Layer: 0
-  m_Name: Plates
+  m_Name: Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3586,7 +3623,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 159425740}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2017969794
 GameObject:
@@ -3599,8 +3636,10 @@ GameObject:
   - component: {fileID: 2017969795}
   - component: {fileID: 2017969797}
   - component: {fileID: 2017969796}
+  - component: {fileID: 2017969799}
+  - component: {fileID: 2017969798}
   m_Layer: 0
-  m_Name: Filament
+  m_Name: Filament1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3618,7 +3657,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 159425740}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!73398921 &2017969796
 VFXRenderer:
@@ -3694,7 +3733,42 @@ VisualEffect:
     m_NamedObject:
       m_Array: []
     m_Bool:
-      m_Array: []
+      m_Array:
+      - m_Value: 1
+        m_Name: Spawn
+        m_Overridden: 1
+--- !u!114 &2017969798
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017969794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ac596c74cd82a4c906be06f710c862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  check: 0
+  m_Property:
+    m_Name: Spawn
+  Target: {fileID: 1875532391}
+--- !u!114 &2017969799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017969794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdafc37f32b176349b1684c4455b98e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ExecuteInEditor: 1
+  m_Bindings:
+  - {fileID: 2017969798}
+  m_VisualEffect: {fileID: 2017969797}
 --- !u!1 &2019447637
 GameObject:
   m_ObjectHideFlags: 0
