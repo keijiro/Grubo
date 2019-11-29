@@ -19,9 +19,9 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: -1055
-    y: -1667
+    y: -1658
     width: 886
-    height: 2252
+    height: 2243
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,16 +125,16 @@ VisualEffectResource:
       = GetStripDataFromStripIndex(stripIndex, PARTICLE_PER_STRIP_COUNT);\r\n\t\tInitStripAttributes(particleIndex,
       attributes, stripData);\r\n\t\t// TODO Change seed to be sure we're deterministic
       on random with strip\r\n#endif\r\n        \r\n        {\n            SetAttribute_CAC295B2(
-      /*inout */attributes.position,  /*inout */attributes.seed, float3(-1, -1, -1),
-      float3(1, 1, 1));\n        }\n        {\n            SetAttribute_F0142CB9(
+      /*inout */attributes.position,  /*inout */attributes.seed, float3(-2, -1, -2),
+      float3(1, 1, 3));\n        }\n        {\n            SetAttribute_F0142CB9(
       /*inout */attributes.lifetime, (float)0.0160000008);\n        }\n        \n\r\n\t\t\r\n#if
       VFX_USE_ALIVE_CURRENT\r\n        if (attributes.alive)\r\n#endif       \r\n       
       {\r\n#if USE_DEAD_LIST\r\n\t        uint deadIndex = deadListIn.DecrementCounter();\r\n           
       uint index = deadListIn[deadIndex];\r\n#else\r\n            uint index = particleIndex;\r\n#endif\r\n           
-      attributeBuffer.Store3((index * 0x4 + 0xC0) << 2,asuint(attributes.position));\n           
+      attributeBuffer.Store3((index * 0x4 + 0x180) << 2,asuint(attributes.position));\n           
       attributeBuffer.Store((index * 0x1 + 0x0) << 2,asuint(attributes.lifetime));\n           
-      attributeBuffer.Store((index * 0x2 + 0x40) << 2,asuint(attributes.age));\n           
-      attributeBuffer.Store((index * 0x2 + 0x41) << 2,uint(attributes.alive));\n           
+      attributeBuffer.Store((index * 0x2 + 0x80) << 2,asuint(attributes.age));\n           
+      attributeBuffer.Store((index * 0x2 + 0x81) << 2,uint(attributes.alive));\n           
       \n\r\n        }\r\n    }\r\n}\r\n"
   - compute: 1
     name: '[System 1]Update Particle'
@@ -164,9 +164,9 @@ VisualEffectResource:
       + groupId.y * dispatchWidth * NB_THREADS_PER_GROUP;\r\n\tuint index = id;\r\n\tif
       (id < nbMax)\r\n\t{\r\n        Attributes attributes = (Attributes)0;\r\n\t\tSourceAttributes
       sourceAttributes = (SourceAttributes)0;\r\n\r\n#if VFX_USE_ALIVE_CURRENT\r\n\t\tattributes.alive
-      = (attributeBuffer.Load((index * 0x2 + 0x41) << 2));\n\t\t\n\r\n\t\tif (attributes.alive)\r\n\t\t{\r\n\t\t\tattributes.lifetime
+      = (attributeBuffer.Load((index * 0x2 + 0x81) << 2));\n\t\t\n\r\n\t\tif (attributes.alive)\r\n\t\t{\r\n\t\t\tattributes.lifetime
       = asfloat(attributeBuffer.Load((index * 0x1 + 0x0) << 2));\n\t\t\tattributes.age
-      = asfloat(attributeBuffer.Load((index * 0x2 + 0x40) << 2));\n\t\t\tattributes.eventCount
+      = asfloat(attributeBuffer.Load((index * 0x2 + 0x80) << 2));\n\t\t\tattributes.eventCount
       = (uint)0;\n\t\t\tuint eventCount_a = 0u;\n\t\t\t\n\r\n\r\n// Initialize built-in
       needed attributes\r\n#if VFX_USE_OLDPOSITION_CURRENT\r\n\t\t\tattributes.oldPosition
       = attributes.position;\r\n#endif\r\n#if HAS_STRIPS\r\n            const StripData
@@ -177,14 +177,14 @@ VisualEffectResource:
       eventCount_a += attributes.eventCount;\n\t\t\t}\n\t\t\tAge( /*inout */attributes.age,
       deltaTime_a);\n\t\t\tReap(attributes.age, attributes.lifetime,  /*inout */attributes.alive);\n\t\t\t\n\r\n\r\n\t\t\tif
       (attributes.alive)\r\n\t\t\t{\r\n\t\t\t\tattributeBuffer.Store((index * 0x2
-      + 0x40) << 2,asuint(attributes.age));\n\t\t\t\tfor (uint i = 0; i < eventCount_a;
+      + 0x80) << 2,asuint(attributes.age));\n\t\t\t\tfor (uint i = 0; i < eventCount_a;
       ++i) eventListOut_a.Append(index);\n\t\t\t\t\n\r\n#if VFX_HAS_INDIRECT_DRAW\r\n               
       uint indirectIndex = indirectBuffer.IncrementCounter();\r\n\t\t\t\tindirectBuffer[indirectIndex]
       = index;\r\n#endif\r\n\r\n#if HAS_STRIPS\t\t\t\r\n\t\t\t\tuint relativeIndexInStrip
       = GetRelativeIndex(index, stripData);\r\n\t\t\t\tInterlockedMin(STRIP_DATA(STRIP_MIN_ALIVE,
       stripData.stripIndex), relativeIndexInStrip);\r\n\t\t\t\tInterlockedMax(STRIP_DATA(STRIP_MAX_ALIVE,
       stripData.stripIndex), relativeIndexInStrip);\r\n#endif\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\t{\r\n\t\t\t\tattributeBuffer.Store((index
-      * 0x2 + 0x41) << 2,uint(attributes.alive));\n\t\t\t\tfor (uint i = 0; i < eventCount_a;
+      * 0x2 + 0x81) << 2,uint(attributes.alive));\n\t\t\t\tfor (uint i = 0; i < eventCount_a;
       ++i) eventListOut_a.Append(index);\n\t\t\t\t\n\r\n#if USE_DEAD_LIST && !VFX_USE_STRIPALIVE_CURRENT\r\n\t\t\t\tuint
       deadIndex = deadListOut.IncrementCounter();\r\n\t\t\t\tdeadListOut[deadIndex]
       = index;\r\n#endif\r\n\t\t\t}\r\n\t\t}\r\n#if USE_DEAD_LIST && VFX_USE_STRIPALIVE_CURRENT\r\n       
@@ -194,8 +194,8 @@ VisualEffectResource:
       = index;\r\n                attributes.stripAlive = false;\r\n               
       \r\n            }            \r\n        }\r\n#endif\r\n#else\r\n\t\tattributes.lifetime
       = asfloat(attributeBuffer.Load((index * 0x1 + 0x0) << 2));\n\t\tattributes.age
-      = asfloat(attributeBuffer.Load((index * 0x2 + 0x40) << 2));\n\t\tattributes.alive
-      = (attributeBuffer.Load((index * 0x2 + 0x41) << 2));\n\t\tattributes.eventCount
+      = asfloat(attributeBuffer.Load((index * 0x2 + 0x80) << 2));\n\t\tattributes.alive
+      = (attributeBuffer.Load((index * 0x2 + 0x81) << 2));\n\t\tattributes.eventCount
       = (uint)0;\n\t\tuint eventCount_a = 0u;\n\t\t\n\r\n\t\t\r\n#if VFX_USE_OLDPOSITION_CURRENT\r\n\t\tattributes.oldPosition
       = attributes.position;\r\n#endif\r\n#if HAS_STRIPS\r\n        const StripData
       stripData = GetStripDataFromParticleIndex(index, PARTICLE_PER_STRIP_COUNT);\r\n       
@@ -204,8 +204,8 @@ VisualEffectResource:
       attributes.alive,  /*inout */attributes.eventCount, (uint)3, deltaTime_a);\n\t\t   
       eventCount_a += attributes.eventCount;\n\t\t}\n\t\tAge( /*inout */attributes.age,
       deltaTime_a);\n\t\tReap(attributes.age, attributes.lifetime,  /*inout */attributes.alive);\n\t\t\n\r\n\t\tattributeBuffer.Store((index
-      * 0x2 + 0x40) << 2,asuint(attributes.age));\n\t\tattributeBuffer.Store((index
-      * 0x2 + 0x41) << 2,uint(attributes.alive));\n\t\tfor (uint i = 0; i < eventCount_a;
+      * 0x2 + 0x80) << 2,asuint(attributes.age));\n\t\tattributeBuffer.Store((index
+      * 0x2 + 0x81) << 2,uint(attributes.alive));\n\t\tfor (uint i = 0; i < eventCount_a;
       ++i) eventListOut_a.Append(index);\n\t\t\n\r\n#if VFX_HAS_INDIRECT_DRAW\r\n       
       uint indirectIndex = indirectBuffer.IncrementCounter();\r\n\t\tindirectBuffer[indirectIndex]
       = index;\r\n#endif\r\n#endif\r\n\t}\r\n}\r\n"
@@ -1057,7 +1057,7 @@ VisualEffectResource:
       attributes.scaleX = (float)1;\n        attributes.scaleY = (float)1;\n       
       attributes.scaleZ = (float)1;\n        attributes.alive = (bool)true;\n       
       attributes.age = (float)0;\n        sourceAttributes.position = asfloat(sourceAttributeBuffer.Load3((sourceIndex
-      * 0x4 + 0xC0) << 2));\n        \n\r\n#if VFX_USE_PARTICLEID_CURRENT\r\n        
+      * 0x4 + 0x180) << 2));\n        \n\r\n#if VFX_USE_PARTICLEID_CURRENT\r\n        
       attributes.particleId = particleIndex;\r\n#endif\r\n#if VFX_USE_SEED_CURRENT\r\n       
       attributes.seed = WangHash(particleIndex ^ systemSeed);\r\n#endif\r\n#if HAS_STRIPS\r\n#if
       !VFX_USE_SPAWNER_FROM_GPU\r\n\t\t\r\n#else\r\n        uint stripIndex = sourceIndex;\r\n#endif\r\n\t\tstripIndex
@@ -1250,7 +1250,7 @@ VisualEffectResource:
         - m_ExpressionIndex: 18
           m_Value: {x: 0, y: 0}
         - m_ExpressionIndex: 19
-          m_Value: {x: 8, y: 8}
+          m_Value: {x: 12, y: 12}
       m_Vector3f:
         m_Array:
         - m_ExpressionIndex: 3
@@ -1260,9 +1260,9 @@ VisualEffectResource:
         - m_ExpressionIndex: 5
           m_Value: {x: 0.005, y: 0.005, z: 0.5}
         - m_ExpressionIndex: 16
-          m_Value: {x: 1, y: 1, z: 1}
+          m_Value: {x: 1, y: 1, z: 3}
         - m_ExpressionIndex: 17
-          m_Value: {x: -1, y: -1, z: -1}
+          m_Value: {x: -2, y: -1, z: -2}
         - m_ExpressionIndex: 20
           m_Value: {x: 10, y: 10, z: 10}
         - m_ExpressionIndex: 21
@@ -1383,7 +1383,7 @@ VisualEffectResource:
     m_ExposedExpressions: []
     m_Buffers:
     - type: 1
-      size: 448
+      size: 896
       layout:
       - name: lifetime
         type: 1
@@ -1394,28 +1394,28 @@ VisualEffectResource:
       - name: age
         type: 1
         offset:
-          bucket: 64
+          bucket: 128
           structure: 2
           element: 0
       - name: alive
         type: 17
         offset:
-          bucket: 64
+          bucket: 128
           structure: 2
           element: 1
       - name: position
         type: 3
         offset:
-          bucket: 192
+          bucket: 384
           structure: 4
           element: 0
       - name: spawnCount
         type: 1
         offset:
-          bucket: 192
+          bucket: 384
           structure: 4
           element: 3
-      capacity: 64
+      capacity: 128
       stride: 4
     - type: 1
       size: 704
@@ -1487,7 +1487,7 @@ VisualEffectResource:
       capacity: 1
       stride: 4
     - type: 4
-      size: 64
+      size: 128
       layout: []
       capacity: 0
       stride: 4
@@ -1575,7 +1575,7 @@ VisualEffectResource:
       shaderSourceIndex: -1
   - type: 1
     flags: 1
-    capacity: 64
+    capacity: 128
     layer: 0
     buffers:
     - nameId: attributeBuffer
@@ -2079,7 +2079,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614935}
   - {fileID: 8926484042661614969}
   dataType: 0
-  capacity: 64
+  capacity: 128
   stripCapacity: 16
   particlePerStripCount: 16
   m_Space: 0
@@ -2135,7 +2135,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Position, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"position":{"x":-1.0,"y":-1.0,"z":-1.0}}'
+      m_SerializableObject: '{"position":{"x":-2.0,"y":-1.0,"z":-2.0}}'
     m_Space: 0
   m_Property:
     name: A
@@ -2311,7 +2311,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Position, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"position":{"x":1.0,"y":1.0,"z":1.0}}'
+      m_SerializableObject: '{"position":{"x":1.0,"y":1.0,"z":3.0}}'
     m_Space: 0
   m_Property:
     name: B
@@ -3644,7 +3644,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 8
+      m_SerializableObject: 12
     m_Space: 2147483647
   m_Property:
     name: Count
