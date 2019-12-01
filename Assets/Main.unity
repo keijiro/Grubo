@@ -341,7 +341,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &64475115
 Transform:
   m_ObjectHideFlags: 0
@@ -521,7 +521,7 @@ Transform:
   - {fileID: 682626191}
   - {fileID: 249655697}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &199317985
 GameObject:
@@ -534,7 +534,7 @@ GameObject:
   - component: {fileID: 199317986}
   - component: {fileID: 199317987}
   m_Layer: 0
-  m_Name: Any Key
+  m_Name: Keyboard To Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -551,7 +551,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 700273195}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &199317987
@@ -576,7 +576,55 @@ MonoBehaviour:
     m_SingletonActionBindings:
     - m_Name: 
       m_Id: 47c42f27-90b0-42a1-8d6f-9244d706a4e4
-      m_Path: <Keyboard>/anyKey
+      m_Path: <Keyboard>/q
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Action
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 30484eee-f3a4-4e66-a4c7-f0483ec733fa
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Action
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 5c11dd75-f7b0-44fd-8679-0e985e972991
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Action
+      m_Flags: 0
+    - m_Name: 
+      m_Id: b708d013-9f55-4f1d-837c-7da2b3b3cc83
+      m_Path: <Keyboard>/r
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Action
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 7147b5d1-24d2-4d5d-9a0e-b5fb29b37ea5
+      m_Path: <Keyboard>/t
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Action
+      m_Flags: 0
+    - m_Name: 
+      m_Id: d6c4472a-b53a-463d-90ce-ea3944897061
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Action
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 9306d66f-57f8-46c0-bfd3-90abb6066c9c
+      m_Path: <Keyboard>/z
       m_Interactions: 
       m_Processors: 
       m_Groups: 
@@ -940,7 +988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &289265478
 Transform:
   m_ObjectHideFlags: 0
@@ -1089,7 +1137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &309386621
 Transform:
   m_ObjectHideFlags: 0
@@ -1416,7 +1464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &585374243
 Transform:
   m_ObjectHideFlags: 0
@@ -1469,7 +1517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &593513859
 Transform:
   m_ObjectHideFlags: 0
@@ -1653,6 +1701,7 @@ Transform:
   m_Children:
   - {fileID: 1826330071}
   - {fileID: 225423869}
+  - {fileID: 199317986}
   - {fileID: 1423080894}
   m_Father: {fileID: 1876703296}
   m_RootOrder: 4
@@ -1687,7 +1736,7 @@ Transform:
   - {fileID: 780842412}
   - {fileID: 1597882250}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &780007331
 GameObject:
@@ -1908,7 +1957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1083619389
 Transform:
   m_ObjectHideFlags: 0
@@ -2264,7 +2313,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 700273195}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1423080895
 MonoBehaviour:
@@ -2757,7 +2806,7 @@ Transform:
   m_Children:
   - {fileID: 331120612}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1663586470
 GameObject:
@@ -2832,7 +2881,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1676525398
 Transform:
   m_ObjectHideFlags: 0
@@ -3094,7 +3143,7 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array:
-      - m_Value: 1
+      - m_Value: 0
         m_Name: Spawn
         m_Overridden: 1
 --- !u!114 &1796482538
@@ -3145,7 +3194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1815743567
 Transform:
   m_ObjectHideFlags: 0
@@ -3317,7 +3366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1875532392
 Transform:
   m_ObjectHideFlags: 0
@@ -3389,7 +3438,7 @@ Transform:
   - {fileID: 1663586471}
   - {fileID: 319547014}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1893829692
 GameObject:
@@ -3516,7 +3565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1912823948
 Transform:
   m_ObjectHideFlags: 0
@@ -3804,7 +3853,7 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array:
-      - m_Value: 1
+      - m_Value: 0
         m_Name: Spawn
         m_Overridden: 1
 --- !u!114 &2017969798
@@ -3855,7 +3904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2025891308
 Transform:
   m_ObjectHideFlags: 0
