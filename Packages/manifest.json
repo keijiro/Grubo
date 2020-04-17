@@ -13,6 +13,7 @@
     "jp.keijiro.kino.post-processing": "2.1.12",
     "jp.keijiro.klak.motion": "1.0.1",
     "jp.keijiro.minis": "1.0.6",
+    "jp.keijiro.osc-jack": "1.0.1",
     "jp.keijiro.vfx-extra": "1.0.0"
   }
 }

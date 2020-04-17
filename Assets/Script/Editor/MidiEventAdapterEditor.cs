@@ -103,6 +103,7 @@ namespace Grubo
         SerializedProperty _source;
         SerializedProperty _lowestNote;
         SerializedProperty _highestNote;
+        SerializedProperty _oscBeatNumber;
 
         void OnEnable()
         {
@@ -125,6 +126,7 @@ namespace Grubo
             _source = serializedObject.FindProperty("_source");
             _lowestNote = serializedObject.FindProperty("_lowestNote");
             _highestNote = serializedObject.FindProperty("_highestNote");
+            _oscBeatNumber = serializedObject.FindProperty("_oscBeatNumber");
         }
 
         public override void OnInspectorGUI()
@@ -150,6 +152,8 @@ namespace Grubo
                 LayoutNoteOctaveSelector("Highest Note", _highestNote);
                 break;
             }
+
+            EditorGUILayout.PropertyField(_oscBeatNumber);
 
             serializedObject.ApplyModifiedProperties();
         }

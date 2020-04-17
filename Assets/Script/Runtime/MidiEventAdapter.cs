@@ -5,6 +5,7 @@ using UnityEngine.VFX;
 using System.Collections.Generic;
 using System.Linq;
 using Minis;
+using OscJack;
 
 namespace Grubo
 {
@@ -53,6 +54,9 @@ namespace Grubo
         [SerializeField] int [] _noteNumbers = new [] { 60 };
         [SerializeField] int _lowestNote = 0;
         [SerializeField] int _highestNote = 127;
+
+        // OSC input
+        [SerializeField] int _oscBeatNumber = 0;
 
         #endregion
 
@@ -223,6 +227,67 @@ namespace Grubo
 
         #endregion
 
+        #region OSC server instance
+
+        static OscServer _oscServer;
+
+        static void
+          StartUsingOsc(OscMessageDispatcher.MessageCallback callback)
+        {
+            if (_oscServer == null) _oscServer = new OscServer(10000);
+            _oscServer.MessageDispatcher.AddCallback("/beat", callback);
+        }
+
+        static void EndUsingOsc()
+        {
+            if (_oscServer != null)
+            {
+                _oscServer.Dispose();
+                _oscServer = null;
+            }
+        }
+
+        #endregion
+
+        #region OSC message
+
+        int _oscBeatIncoming;
+        int _oscBeatCount;
+
+        Queue<(float time, int note)> _oscBeatQueue
+          = new Queue<(float, int)>();
+
+        void OnOscBeat(string address, OscDataHandle data)
+        {
+            var index = data.GetElementAsInt(0);
+            if (_oscBeatNumber >= 0 && index != _oscBeatNumber) return;
+            _oscBeatIncoming++;
+        }
+
+        void UpdateOscBeats()
+        {
+            var time = Time.time;
+
+            // Note on
+            for (; _oscBeatIncoming > 0; _oscBeatIncoming--)
+            {
+                var note = _oscBeatCount++ & 127;
+                OnNoteOn(note, Random.Range(0.8f, 1.0f));
+                _oscBeatQueue.Enqueue((time, note));
+            }
+
+            // Note off
+            var thresh = time - 0.1f;
+            while (_oscBeatQueue.Count > 0 &&
+                   _oscBeatQueue.Peek().time <= thresh)
+            {
+                var note = _oscBeatQueue.Dequeue().note;
+                OnNoteOff(note);
+            }
+        }
+
+        #endregion
+
         #region MonoBehaviour implementation
 
         void OnDisable()
@@ -239,6 +304,8 @@ namespace Grubo
             // Subscribe the device event.
             EditMidiDeviceSubscription(true);
             InputSystem.onDeviceChange += OnDeviceChange;
+
+            StartUsingOsc(OnOscBeat);
         }
 
         void OnDestroy()
@@ -246,10 +313,14 @@ namespace Grubo
             // Unsubscribe the Input System.
             InputSystem.onDeviceChange -= OnDeviceChange;
             EditMidiDeviceSubscription(false);
+
+            EndUsingOsc();
         }
 
         void Update()
         {
+            UpdateOscBeats();
+
             // Update the note slots.
             foreach (var slot in _slots)
             {
