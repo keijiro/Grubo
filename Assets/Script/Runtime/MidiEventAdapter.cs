@@ -234,7 +234,7 @@ namespace Grubo
         static void
           StartUsingOsc(OscMessageDispatcher.MessageCallback callback)
         {
-            if (_oscServer == null) _oscServer = new OscServer(10000);
+            if (_oscServer == null) _oscServer = new OscServer(33334);
             _oscServer.MessageDispatcher.AddCallback("/beat", callback);
         }
 
