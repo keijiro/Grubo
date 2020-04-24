@@ -227,28 +227,6 @@ namespace Grubo
 
         #endregion
 
-        #region OSC server instance
-
-        static OscServer _oscServer;
-
-        static void
-          StartUsingOsc(OscMessageDispatcher.MessageCallback callback)
-        {
-            if (_oscServer == null) _oscServer = new OscServer(44445);
-            _oscServer.MessageDispatcher.AddCallback("/beat", callback);
-        }
-
-        static void EndUsingOsc()
-        {
-            if (_oscServer != null)
-            {
-                _oscServer.Dispose();
-                _oscServer = null;
-            }
-        }
-
-        #endregion
-
         #region OSC message
 
         int _oscBeatIncoming;
@@ -305,7 +283,9 @@ namespace Grubo
             EditMidiDeviceSubscription(true);
             InputSystem.onDeviceChange += OnDeviceChange;
 
-            StartUsingOsc(OnOscBeat);
+            // Subscribe the OSC beat event.
+            var server = OscMaster.GetSharedServer(44445);
+            server.MessageDispatcher.AddCallback("/beat", OnOscBeat);
         }
 
         void OnDestroy()
@@ -314,7 +294,9 @@ namespace Grubo
             InputSystem.onDeviceChange -= OnDeviceChange;
             EditMidiDeviceSubscription(false);
 
-            EndUsingOsc();
+            // Unsubscribe the OSC beat event.
+            var server = OscMaster.GetSharedServer(44445);
+            server.MessageDispatcher.RemoveCallback("/beat", OnOscBeat);
         }
 
         void Update()
